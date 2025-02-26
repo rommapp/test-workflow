@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.release.tag_name =~ '^\\d+\\.\\d+\\.\\d+(-alpha\\.\\d+|-beta\\.\\d+)?$'
+    if: (github.event.release.tag_name =~ '^\\d+\\.\\d+\\.\\d+(-alpha\\.\\d+|-beta\\.\\d+)?$')
     permissions:
       id-token: write
       contents: write
@@ -24,7 +24,8 @@ jobs:
   trigger-docs-and-web:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event.release.prerelease == false
+    if:
+      github.event.release.prerelease == false
     steps:
       - name: Trigger docs build
         uses: actions/github-script@v7
