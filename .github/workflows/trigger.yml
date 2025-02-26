@@ -4,11 +4,6 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: write
-  id-token: write
-  actions: write
-
 jobs:
   validate-tag-semver:
     runs-on: ubuntu-latest
@@ -29,10 +24,6 @@ jobs:
     needs: validate-tag-semver
     runs-on: ubuntu-latest
     if: needs.validate-tag-semver.outputs.valid == 'true'
-    permissions:
-      id-token: write
-      contents: write
-      packages: write
     steps:
       - name: Run only once per release
         run: echo "Triggered by ${{ github.event_name }} with tag ${{ github.event.release.tag_name }}"
@@ -41,6 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
   trigger-docs-and-web:
+    permissions: write-all
     needs: build
     runs-on: ubuntu-latest
     if: needs.build.result == 'success' && github.event.release.prerelease == false
