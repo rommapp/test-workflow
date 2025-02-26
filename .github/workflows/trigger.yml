@@ -26,7 +26,7 @@ jobs:
           fi
 
   build:
-    needs: validate-tag
+    needs: validate-tag-semver
     runs-on: ubuntu-latest
     if: needs.validate-tag.outputs.valid == 'true'
     permissions:
