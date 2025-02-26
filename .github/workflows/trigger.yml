@@ -4,6 +4,8 @@ on:
   release:
     types: [published]
 
+permissions: write-all
+
 jobs:
   validate-tag-semver:
     runs-on: ubuntu-latest
@@ -32,7 +34,6 @@ jobs:
         uses: actions/checkout@v4
 
   trigger-docs-and-web:
-    permissions: write-all
     needs: build
     runs-on: ubuntu-latest
     if: needs.build.result == 'success' && github.event.release.prerelease == false
