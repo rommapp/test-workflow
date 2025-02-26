@@ -52,4 +52,4 @@ jobs:
             });
             console.log(response);
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.DOCS_PAT }}
