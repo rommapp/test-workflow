@@ -5,11 +5,13 @@ on:
     types: [published]
 
 permissions:
-  actions: write
   contents: write
+  id-token: write
+  actions: write
+  workflow: write
 
 jobs:
-  validate-tag:
+  validate-tag-semver:
     runs-on: ubuntu-latest
     outputs:
       valid: ${{ steps.check_tag.outputs.valid }}
