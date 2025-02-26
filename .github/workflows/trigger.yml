@@ -64,7 +64,7 @@ jobs:
         with:
           script: |
             const response = await github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
-              owner: 'romapp',
+              owner: 'rommapp',
               repo: 'marketing-site',
               workflow_id: 'deploy.yml',
               ref: 'main',
