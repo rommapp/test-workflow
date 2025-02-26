@@ -4,7 +4,9 @@ on:
   release:
     types: [published]
 
-permissions: read-all
+permissions:
+  actions: write
+  contents: write
 
 jobs:
   validate-tag:
@@ -42,20 +44,20 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.build.result == 'success' && github.event.release.prerelease == false
     steps:
-      - name: Trigger docs build
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const response = await github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
-              owner: 'romapp',
-              repo: 'docs',
-              workflow_id: 'deploy.yml',
-              ref: 'main',
-              inputs: {
-                version: '${{ github.event.release.tag_name }}'
-              }
-            });
-            console.log(response);
+      # - name: Trigger docs build
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       const response = await github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
+      #         owner: 'romapp',
+      #         repo: 'docs',
+      #         workflow_id: 'deploy.yml',
+      #         ref: 'main',
+      #         inputs: {
+      #           version: '${{ github.event.release.tag_name }}'
+      #         }
+      #       });
+      #       console.log(response);
 
       - name: Trigger website build
         uses: actions/github-script@v7
